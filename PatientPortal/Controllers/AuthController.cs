@@ -8,7 +8,7 @@ namespace PatientPortal.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return Ok("200 Ok! Authenticated via Azure AD");
+            return Ok("Hello I am authenticated Via Azure Ad");
         }
     }
 }
