@@ -1,0 +1,18 @@
+﻿@model PatientPortal.Models.DomainModels.Patient
+@{ ViewData["title"]="Delete the Patient";
+}
+<h2>@ViewData["title"]</h2>
+<div>
+    <h2>"Are you sure, you want to delete the user?"</h2>
+    <p><strong>Full Name:</strong>@Model.FullName</p>
+    <p><strong>Date Of Birth:</strong>@Model.DateOfBirth</p>
+    <p><strong>Gender:</strong>@Model.Gender</p>
+    <p><strong>Emial:</strong>@Model.Email</p>
+    <p><strong>Phone:</strong>@Model.Phone</p>
+    <p><strong>Address:</strong>@Model.Address</p>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="List" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

@@ -1,0 +1,30 @@
+﻿@model PatientPortal.Models.DomainModels.Appointment
+@{
+    ViewData["Title"]="Edit Appointment";
+}
+<h1>@ViewData["Title"] for @Model.Patient.FullName</h1>
+<form asp-controller="Appointment" asp-action="Edit" method="post">
+    <input type="hidden" asp-for="PatientId"/>
+    <div class="form-group">
+        <label asp-for="AppointmentDate"></label>
+        <input asp-for="AppointmentDate" type="datetime-local" class="form-control" />
+        <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DoctorName"></label>
+        <select asp-for="DoctorName" class="form-control">
+            <option value="">Select Doctor</option>
+            <option value="Krishna Vancha">Krishna Vancha</option>
+            <option value="Jyothi Adhikari">Jyothi Adhikari</option>
+            <option value="Rahul Srivastav">Rahul Srivastav</option>
+        </select>
+        <span asp-validation-for="DoctorName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-controller="Appointment" asp-action="List" asp-route-id="@Model.PatientId" class="btn btn-secondary"> Cancel</a>
+</form>

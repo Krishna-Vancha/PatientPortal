@@ -1,0 +1,38 @@
+﻿@model List<PatientPortal.Models.DomainModels.Appointment>
+@{
+    ViewData["Title"]="Scheduled Appointments";
+}
+<h1> @ViewData["Title"] for @ViewBag.PatientName</h1>
+<a asp-controller="Patient" asp-action="Details" asp-route-id="@ViewBag.PatientId" class="btn btn-secondary mb-3">Back To Profile</a>
+<a asp-action="Book" asp-route-id="@ViewBag.PatientId" class="btn btn-secondary mb-3"> Book a new Appointment</a>
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Doctor</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appt in Model.OrderByDescending(a => a.AppointmentDate))
+            {
+                <tr>
+                    <td>@appt.AppointmentDate.ToShortDateString()</td>
+                     <td>@appt.DoctorName</td>
+                     <td>@appt.Description</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@appt.Id" class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@appt.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p> No Appointments Scheduled</p>
+}

@@ -1,0 +1,46 @@
+﻿@using PatientPortal.Models.DomainModels
+@model List<Patient>
+@{
+    ViewData["Title"] = "Patient List";
+}
+<h1>@ViewData["Title"]</h1>
+<form asp-action="List" method="get" class="d-flex mb-3">
+    <div class="form-group me-3">
+        <input type="Text" name="searchTerm" class="form-control me-3" placeholder="Search By Name" value="@ViewBag.SearchTerm"/>
+    </div>
+    <button type="submit" class="btn btn-primary me-2">Search</button>
+    <a asp-action="List" class="btn btn-secondary me-2">Clear</a>
+</form>
+<a asp-action="Create" class="btn btn-success mb-3">Add Patient</a>
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Date Of Birth</th>
+                <th>Gender</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.FullName</td>
+                    <td>@p.DateOfBirth.ToShortDateString()</td>
+                    <td>@p.Gender</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@p.Id" class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@p.Id" class="btn btn-sm btn-danger">Delete</a>
+                        <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-sm btn-info">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No patients found.</p>
+}
