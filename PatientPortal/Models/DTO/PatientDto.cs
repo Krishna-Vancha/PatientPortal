@@ -1,12 +1,14 @@
-﻿using PatientPortal.Models.IdentityEntityModel;
+﻿using PatientPortal.Models.DomainModels;
+using PatientPortal.Models.IdentityEntityModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace PatientPortal.Models.DomainModels
+
+namespace PatientPortal.Models.DTO
 {
-    public class Patient
+    public class PatientDto
     {
         public Guid Id { get; set; }
-        [Required(ErrorMessage = "Full name is required.")]
+        [Required(ErrorMessage ="Full name is Required")]
         public string FullName { get; set; }
         [Required]
         [DataType(DataType.Date)]
@@ -28,12 +30,7 @@ namespace PatientPortal.Models.DomainModels
         [ForeignKey("ApplicationUserId")]
         public ApplicationUser ApplicationUser { get; set; }
 
-
-
-
-
-
-
         public ICollection<Appointment>? Appointments { get; set; }
+
     }
 }

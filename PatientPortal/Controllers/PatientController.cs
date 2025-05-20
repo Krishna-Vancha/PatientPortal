@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PatientPortal.Data;
 using PatientPortal.Models.DomainModels;
+using PatientPortal.Models.IdentityEntityModel;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -15,6 +17,13 @@ namespace PatientPortal.Controllers
         private readonly PatientPortalDbContext dbContext;
         private readonly IConfiguration configuration;
         private readonly ILogger<PatientController> logger;
+        private readonly UserManager<ApplicationUser> userManager;
+
+        public PatientController(UserManager<ApplicationUser> userManager)
+        {
+            this.userManager = userManager;
+        }
+
         public PatientController(PatientPortalDbContext dbContext, IConfiguration configuration, ILogger<PatientController> logger)
         {
             this.dbContext = dbContext;
@@ -90,6 +99,7 @@ namespace PatientPortal.Controllers
                     ModelState.AddModelError("DateOfBirth", "Date of Birth cannot be in the future.");
                     return View(patient);
                 }
+
                 patient.Id = Guid.NewGuid();
                 dbContext.Patients.Add(patient);
                 dbContext.SaveChanges();

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PatientPortal.Data;
 
@@ -11,9 +12,11 @@ using PatientPortal.Data;
 namespace PatientPortal.Migrations
 {
     [DbContext(typeof(PatientPortalDbContext))]
-    partial class PatientPortalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250520210904_AddApplicationUserRelationerrrorFixed")]
+    partial class AddApplicationUserRelationerrrorFixed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

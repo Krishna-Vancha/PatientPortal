@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PatientPortal.Data;
+using PatientPortal.Models.IdentityEntityModel;
 using Serilog;
 using System.Text;
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +24,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<PatientPortalDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PatientConnectionString")));
 // Configure Authentication
+//Enable Identity
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>().AddDefaultTokenProviders()
+    .AddEntityFrameworkStores<PatientPortalDbContext>().
+    AddUserStore<UserStore<ApplicationUser, ApplicationRole, PatientPortalDbContext, Guid>>().
+    AddRoleStore<RoleStore<ApplicationRole, PatientPortalDbContext,Guid>>(); 
+
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
